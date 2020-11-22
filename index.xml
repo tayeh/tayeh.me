@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hi! I&#39;m Mohammed Tayeh 😄</title>
+    <link>https://tayeh.me/</link>
+    <description>Recent content on Hi! I&#39;m Mohammed Tayeh 😄</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Tue, 17 Nov 2020 04:01:59 -1000</lastBuildDate><atom:link href="https://tayeh.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Use SSH keys for authentication</title>
+      <link>https://tayeh.me/posts/use-ssh-keys/</link>
+      <pubDate>Tue, 17 Nov 2020 04:01:59 -1000</pubDate>
+      
+      <guid>https://tayeh.me/posts/use-ssh-keys/</guid>
+      <description>Set up your first SSH keys Use SSH keys for authentication without password when you are connecting to your server. simple and secure login process.
+To Generate a new SSH Key [root@server ~]$ ssh-keygen Generating public/private rsa key pair. Enter file in which to save the key (/root/.ssh/id_rsa): Enter passphrase (empty for no passphrase): Enter same passphrase again: Your identification has been saved in /root/.ssh/id_rsa. Your public key has been saved in /root/.</description>
+    </item>
+    
+    <item>
+      <title>Hey-o! Tayeh here. 👋</title>
+      <link>https://tayeh.me/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tayeh.me/about/</guid>
+      <description>I&amp;rsquo;m a Site Reliability Engineer (DevOps Engineer), love tinkering, automation, Linux, and Open-source.
+I graduated from University of Palestine in 2017 in Information Technology.
+Around the web  Email: mrahmanadam@gmail.com GitHub: msradam LinkedIn: adamsrahman Medium: @mrahmanadam Twitter: @seriffic Instagram: @seriffic  </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,92 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on Hi! I&#39;m Mohammed Tayeh 😄</title>
+        <link>https://tayeh.me/posts/</link>
+        <description>Recent content in Posts on Hi! I&#39;m Mohammed Tayeh 😄</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+        <lastBuildDate>Tue, 17 Nov 2020 04:01:59 -1000</lastBuildDate>
+        <atom:link href="https://tayeh.me/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Use SSH keys for authentication</title>
+            <link>https://tayeh.me/posts/use-ssh-keys/</link>
+            <pubDate>Tue, 17 Nov 2020 04:01:59 -1000</pubDate>
+            
+            <guid>https://tayeh.me/posts/use-ssh-keys/</guid>
+            <description>Set up your first SSH keys Use SSH keys for authentication without password when you are connecting to your server. simple and secure login process.
+To Generate a new SSH Key [root@server ~]$ ssh-keygen Generating public/private rsa key pair. Enter file in which to save the key (/root/.ssh/id_rsa): Enter passphrase (empty for no passphrase): Enter same passphrase again: Your identification has been saved in /root/.ssh/id_rsa. Your public key has been saved in /root/.</description>
+            <content type="html"><![CDATA[<h2 id="set-up-your-first-ssh-keys">Set up your first SSH keys</h2>
+<p>Use SSH keys for authentication without password when you are connecting to your server. simple and secure login process.</p>
+<h3 id="to-generate-a-new-ssh-key">To Generate a new SSH Key</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@server ~<span style="color:#f92672">]</span>$ ssh-keygen 
+Generating public/private rsa key pair.
+Enter file in which to save the key <span style="color:#f92672">(</span>/root/.ssh/id_rsa<span style="color:#f92672">)</span>: 
+Enter passphrase <span style="color:#f92672">(</span>empty <span style="color:#66d9ef">for</span> no passphrase<span style="color:#f92672">)</span>: 
+Enter same passphrase again: 
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:kxPyLTxxqwobFXoOxxxABaDD0xxnZzCB6xxxf38 root@server
+The key<span style="color:#960050;background-color:#1e0010">&#39;</span>s randomart image is:
++---<span style="color:#f92672">[</span>RSA 2048<span style="color:#f92672">]</span>----+
+|<span style="color:#f92672">=</span>+<span style="color:#f92672">==</span>*            |
+|xo.o <span style="color:#f92672">=</span>           |
+|+oo.O .          |
+|<span style="color:#f92672">=</span>o.* * o         |
+|.x. <span style="color:#f92672">=</span> X S        |
+| .   O *         |
+|    o <span style="color:#f92672">=</span> o        |
+|     + qo.x.   P |
+|    . .xx+o..o.  |
++----<span style="color:#f92672">[</span>SHA256<span style="color:#f92672">]</span>-----+
+
+</code></pre></div><h3 id="first-way-copy-the-public-key-to-your-server-using-the-command">First way: Copy the public key to your server using the command</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@server ~<span style="color:#f92672">]</span>$ ssh-copy-id root@&lt;instance_ip&gt;
+/usr/bin/ssh-copy-id: INFO: Source of key<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> to be installed: <span style="color:#e6db74">&#34;/root/.ssh/id_rsa.pub&#34;</span>
+The authenticity of host <span style="color:#e6db74">&#39;&lt;instance_ip&gt; (&lt;instance_ip&gt;)&#39;</span> can<span style="color:#e6db74">&#39;t be established.
+</span><span style="color:#e6db74">ECDSA key fingerprint is SHA256:aF/iyxxxKqx1LUyM/uyr/xxxxxxxxxxx.
+</span><span style="color:#e6db74">ECDSA key fingerprint is MD5:xx:c3:xx:48:b4:ef:xx:e4:58:a4:xx:14:c1:xx:c5:af.
+</span><span style="color:#e6db74">Are you sure you want to continue connecting (yes/no)? yes
+</span><span style="color:#e6db74">/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+</span><span style="color:#e6db74">/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+</span><span style="color:#e6db74">root@&lt;instance_ip&gt;&#39;</span>s password: 
+
+Number of key<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> added: <span style="color:#ae81ff">1</span>
+
+Now try logging into the machine, with:   <span style="color:#e6db74">&#34;ssh &#39;root@&lt;instance_ip&gt;&#39;&#34;</span>
+and check to make sure that only the key<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> you wanted were added.
+
+</code></pre></div><h3 id="second-way-download-the-public-key-to-your-server-using-the-github-gitlab">Second way: Download the public key to your server using the Github, Gitlab</h3>
+<ul>
+<li>upload your key to Github or Gitlab: <code>settings -&gt;  SSH keys -&gt; New SSH key</code></li>
+<li>after uoload the SSH key you can access key on <a href="https://github.com/tayeh.keys">Github</a>, <a href="https://gitlab.com/tayeh.keys">Gitlab</a></li>
+</ul>
+<p>now you can import the SSH key using curl command</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@server ~<span style="color:#f92672">]</span>$ curl -L https://github.com/tayeh.keys &gt;&gt; ~/.ssh/authorized_keys
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@server ~<span style="color:#f92672">]</span>$ curl -L https://github.com/tayeh.keys &gt;&gt; ~/.ssh/authorized_keys
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+<span style="color:#ae81ff">100</span>  <span style="color:#ae81ff">1315</span>  <span style="color:#ae81ff">100</span>  <span style="color:#ae81ff">1315</span>    <span style="color:#ae81ff">0</span>     <span style="color:#ae81ff">0</span>   <span style="color:#ae81ff">6015</span>      <span style="color:#ae81ff">0</span> --:--:-- --:--:-- --:--:--  <span style="color:#ae81ff">6032</span>
+</code></pre></div><blockquote>
+<p>note this way will import all keys on your github account</p>
+</blockquote>
+<p>now you can access your server without password try:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh root@&lt;instance_ip&gt;
+</code></pre></div><h3 id="turn-off-password-authentication">Turn off password authentication</h3>
+<p>With SSH key authentication, you can disable password authentication for SSH to prevent brute-forcing.
+<strong>open SSH configuration file</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /etc/ssh/sshd_config
+</code></pre></div><p><strong>search for</strong> <code>PasswordAuthentication</code> and <code>PermitRootLogin</code> change it to:</p>
+<pre><code>PasswordAuthentication no
+PermitRootLogin without-password
+</code></pre><p><strong>Restart the SSH service</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">systemctl restart sshd
+</code></pre></div><h3 id="conclusions">Conclusions</h3>
+<p>Remember to always keep your private keys safe.</p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>
