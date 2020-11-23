@@ -9,6 +9,16 @@
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Tue, 17 Nov 2020 04:01:59 -1000</lastBuildDate><atom:link href="https://tayeh.me/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Uses</title>
+      <link>https://tayeh.me/uses/</link>
+      <pubDate>Mon, 23 Nov 2020 13:11:59 +0200</pubDate>
+      
+      <guid>https://tayeh.me/uses/</guid>
+      <description>Here are the things I use which keeps me productive.
+Hardware  I use HP OMEN 15 (2020). It is a fast machine, Intel Core i7-10750H Hexa-Core, 20GB of DDR4 RAM, 512Gb NVMe SSD, NVIDIA GeForce GTX 1660Ti (6GB GDDR6). I am currently using iPhone 7 as my phone. It is an old device, but it still feels fast. I am planning to upgrade it (support).  Operating System  I use Linux for my day job as a primary OS, I use Fedora as a primary distro from 8 years, Fedora 33.</description>
+    </item>
+    
+    <item>
       <title>Use SSH keys for authentication</title>
       <link>https://tayeh.me/posts/use-ssh-keys/</link>
       <pubDate>Tue, 17 Nov 2020 04:01:59 -1000</pubDate>
