@@ -205,7 +205,7 @@ and add this code to the file:</p>
           <span style="color:#f92672">passphrase</span>: <span style="color:#ae81ff">${{ secrets.PASSPHRASE }} </span>
           <span style="color:#f92672">script</span>: <span style="color:#ae81ff">cd ${{ secrets.PROJECT_PATH }} &amp;&amp; git pull</span>
 </code></pre></div><p>After add this file go to <code>Settings -&gt; Secrets</code> and add secrets <code>SERVER_IP</code>, <code>SERVER_USERNAME</code>, <code>KEY</code>, <code>PASSPHRASE</code>, <code>PROJECT_PATH</code>
-<img src="/github_actions_ssh_secrets.png" alt="github_actions_ssh_secrets"></p>
+<img src="/images/github_actions_ssh_secrets.png" alt="github_actions_ssh_secrets"></p>
 <blockquote>
 <p>note: you can use <code>password</code> insted of <code>keys</code> just you need to replace the <code>key and passphrase</code> line with <code>password</code> in the workflow file <code>password: ${{ secrets.PASSWORD }}</code> and add the <code>password</code> to secrets</p>
 </blockquote>
@@ -216,7 +216,7 @@ and add this code to the file:</p>
 <p>also you can add more commands to the script line as you need</p>
 </blockquote>
 <p><strong>the next time we push to the master branch, it will automatically be deployed to our server.</strong></p>
-<p><img src="/github_actions_run_job.png" alt="github_actions_run_job"></p>
+<p><img src="/images/github_actions_run_job.png" alt="github_actions_run_job"></p>
 
     </div>
   </article>
@@ -293,7 +293,7 @@ and add this code to the file:</p>
   
 
    <script src="https://utteranc.es/client.js"
-        repo="tayeh/tayeh"
+        repo="tayeh/tayeh.me"
         issue-term="title"
         theme="github-dark"
         crossorigin="anonymous"
