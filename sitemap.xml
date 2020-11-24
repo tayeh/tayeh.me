@@ -3,23 +3,38 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://tayeh.me/uses/</loc>
-    <lastmod>2020-11-23T13:11:59+02:00</lastmod>
+    <loc>https://tayeh.me/tags/devops/</loc>
+    <lastmod>2020-11-24T10:07:01+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/tags/github/</loc>
+    <lastmod>2020-11-24T10:07:01+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://tayeh.me/</loc>
-    <lastmod>2020-11-17T04:01:59-10:00</lastmod>
+    <lastmod>2020-11-24T10:07:01+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/posts/github_actions_via_ssh/</loc>
+    <lastmod>2020-11-24T10:07:01+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://tayeh.me/posts/</loc>
-    <lastmod>2020-11-17T04:01:59-10:00</lastmod>
+    <lastmod>2020-11-24T10:07:01+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://tayeh.me/tags/</loc>
-    <lastmod>2020-11-17T04:01:59-10:00</lastmod>
+    <lastmod>2020-11-24T10:07:01+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/uses/</loc>
+    <lastmod>2020-11-23T13:11:59+02:00</lastmod>
   </url>
   
   <url>
@@ -34,6 +49,10 @@
   
   <url>
     <loc>https://tayeh.me/blog/</loc>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/tags/ci/cd/</loc>
   </url>
   
   <url>

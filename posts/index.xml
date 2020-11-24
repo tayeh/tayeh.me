@@ -6,8 +6,73 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 17 Nov 2020 04:01:59 -1000</lastBuildDate>
+        <lastBuildDate>Tue, 24 Nov 2020 10:07:01 +0200</lastBuildDate>
         <atom:link href="https://tayeh.me/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>How to automate a deploy with GitHub actions via SSH</title>
+            <link>https://tayeh.me/posts/github_actions_via_ssh/</link>
+            <pubDate>Tue, 24 Nov 2020 10:07:01 +0200</pubDate>
+            
+            <guid>https://tayeh.me/posts/github_actions_via_ssh/</guid>
+            <description>Introduction GitHub Actions is an API for cause and effect on GitHub: orchestrate any workflow, based on any event, while GitHub manages the execution, provides rich feedback, and secures every step along the way.
+In this article, we will be exploring a hands-on approach to managing your CD processes using GitHub Actions via SSH.
+The workflow:
+ Connect to VPS via SSH Move to project directory git pull the new changes execute any necessary command  Prerequisites  A GitHub account.</description>
+            <content type="html"><![CDATA[<h3 id="introduction">Introduction</h3>
+<p>GitHub Actions is an API for cause and effect on GitHub: orchestrate any workflow, based on any event, while GitHub manages the execution, provides rich feedback, and secures every step along the way.</p>
+<p>In this article, we will be exploring a hands-on approach to managing your CD processes using GitHub Actions via SSH.</p>
+<p>The workflow:</p>
+<ol>
+<li>Connect to VPS via SSH</li>
+<li>Move to project directory</li>
+<li><code>git pull</code> the new changes</li>
+<li>execute any necessary command</li>
+</ol>
+<h4 id="prerequisites">Prerequisites</h4>
+<ul>
+<li>A GitHub account. If you don’t have one, you can sign up here</li>
+<li>A server with SSH access</li>
+<li>Basic knowledge of writing valid YAML</li>
+<li>Basic knowledge of GitHub and Git</li>
+</ul>
+<h4 id="configuring-workflows">Configuring workflows</h4>
+<p>we should create a yml file on <code>.github/workflows/</code>. For example <code>.github/workflows/ci.yml</code>
+and add this code to the file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#f92672">name</span>: <span style="color:#ae81ff">CI</span>
+
+<span style="color:#f92672">on</span>: [<span style="color:#ae81ff">push]</span>
+
+<span style="color:#f92672">jobs</span>:
+  <span style="color:#f92672">deploy</span>:
+    <span style="color:#f92672">if</span>: <span style="color:#ae81ff">github.ref == &#39;refs/heads/master&#39;</span>
+    <span style="color:#f92672">runs-on</span>: [<span style="color:#ae81ff">ubuntu-latest]</span>
+    <span style="color:#f92672">steps</span>:
+      - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v1</span>
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Push to server</span>
+        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">appleboy/ssh-action@master</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">host</span>: <span style="color:#ae81ff">${{ secrets.SERVER_IP }}</span>
+          <span style="color:#f92672">username</span>: <span style="color:#ae81ff">${{ secrets.SERVER_USERNAME }}</span>
+          <span style="color:#f92672">key</span>: <span style="color:#ae81ff">${{ secrets.KEY }}</span>
+          <span style="color:#f92672">passphrase</span>: <span style="color:#ae81ff">${{ secrets.PASSPHRASE }} </span>
+          <span style="color:#f92672">script</span>: <span style="color:#ae81ff">cd ${{ secrets.PROJECT_PATH }} &amp;&amp; git pull</span>
+</code></pre></div><p>After add this file go to <code>Settings -&gt; Secrets</code> and add secrets <code>SERVER_IP</code>, <code>SERVER_USERNAME</code>, <code>KEY</code>, <code>PASSPHRASE</code>, <code>PROJECT_PATH</code>
+<img src="/github_actions_ssh_secrets.png" alt="This is an image">
+<img src="/github_actions_run_job.png" alt="This is an image"></p>
+<blockquote>
+<p>note: you can use <code>password</code> insted of <code>keys</code> just you need to replace the <code>key and passphrase</code> line with <code>password</code> in the workflow file <code>password: ${{ secrets.PASSWORD }}</code> and add the <code>password</code> to secrets</p>
+</blockquote>
+<blockquote>
+<p>I use the GitHub secrets to keep important information hidden</p>
+</blockquote>
+<blockquote>
+<p>also you can add more commands to the script line as you need</p>
+</blockquote>
+<p><strong>the next time we push to the master branch, it will automatically be deployed to our server.</strong></p>
+<p><img src="/github_actions_run_job.png" alt="This is an image"></p>
+]]></content>
+        </item>
         
         <item>
             <title>Use SSH keys for authentication</title>
