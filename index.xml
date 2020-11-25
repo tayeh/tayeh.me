@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 24 Nov 2020 10:07:01 +0200</lastBuildDate><atom:link href="https://tayeh.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 25 Nov 2020 09:27:21 +0200</lastBuildDate><atom:link href="https://tayeh.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to install the NVIDIA drivers on Fedora 33 with Hybrid Switchable Graphics</title>
+      <link>https://tayeh.me/posts/install_the_nvidia_drivers_on_fedora/</link>
+      <pubDate>Wed, 25 Nov 2020 09:27:21 +0200</pubDate>
+      
+      <guid>https://tayeh.me/posts/install_the_nvidia_drivers_on_fedora/</guid>
+      <description>This is guide, how to install NVIDIA proprietary drivers on Fedora 33 with Hybrid Switchable Graphics [Intel + Nvidia GeForce]
+ Backup important files before you start installation. And this is of course at your own risk, because graphic cards, components and monitors are different and some combinations might cause totally unexpected results.
+ identify your Nvidia graphic lspci -vnn | grep VGA the output of the above command will be like:</description>
+    </item>
+    
     <item>
       <title>How to automate a deploy with GitHub actions via SSH</title>
       <link>https://tayeh.me/posts/github_actions_via_ssh/</link>

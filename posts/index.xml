@@ -6,8 +6,73 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 24 Nov 2020 10:07:01 +0200</lastBuildDate>
+        <lastBuildDate>Wed, 25 Nov 2020 09:27:21 +0200</lastBuildDate>
         <atom:link href="https://tayeh.me/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>How to install the NVIDIA drivers on Fedora 33 with Hybrid Switchable Graphics</title>
+            <link>https://tayeh.me/posts/install_the_nvidia_drivers_on_fedora/</link>
+            <pubDate>Wed, 25 Nov 2020 09:27:21 +0200</pubDate>
+            
+            <guid>https://tayeh.me/posts/install_the_nvidia_drivers_on_fedora/</guid>
+            <description>This is guide, how to install NVIDIA proprietary drivers on Fedora 33 with Hybrid Switchable Graphics [Intel + Nvidia GeForce]
+ Backup important files before you start installation. And this is of course at your own risk, because graphic cards, components and monitors are different and some combinations might cause totally unexpected results.
+ identify your Nvidia graphic lspci -vnn | grep VGA the output of the above command will be like:</description>
+            <content type="html"><![CDATA[<p>This is guide, how to install NVIDIA proprietary drivers on Fedora 33 with Hybrid Switchable Graphics [Intel + Nvidia GeForce]</p>
+<blockquote>
+<p>Backup important files before you start installation. And this is of course at your own risk, because graphic cards, components and monitors are different and some combinations might cause totally unexpected results.</p>
+</blockquote>
+<h3 id="identify-your-nvidia-graphic">identify your Nvidia graphic</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">lspci -vnn | grep VGA
+</code></pre></div><p>the output of the above command will be like:</p>
+<pre><code>00:02.0 VGA compatible controller [0300]: Intel Corporation UHD Graphics [8086:9bc4] (rev 05) (prog-if 00 [VGA controller])
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation TU116M [GeForce GTX 1660 Ti Mobile] [10de:2191] (rev a1) (prog-if 00 [VGA controller])
+</code></pre><h3 id="enable-rpm-fusion">Enable RPM fusion</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-<span style="color:#66d9ef">$(</span>rpm -E %fedora<span style="color:#66d9ef">)</span>.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-<span style="color:#66d9ef">$(</span>rpm -E %fedora<span style="color:#66d9ef">)</span>.noarch.rpm
+</code></pre></div><h3 id="update-your-system">update your system</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo dnf update
+</code></pre></div><blockquote>
+<p>It is recommended to reboot your system after update</p>
+</blockquote>
+<h3 id="install-nvidia-driver">install Nvidia driver</h3>
+<p><strong>install akmod-nvidia</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo dnf install gcc kernel-headers kernel-devel akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs xorg-x11-drv-nvidia-libs.i686
+</code></pre></div><p><strong>install cuda</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo dnf install xorg-x11-drv-nvidia-cuda
+</code></pre></div><p><strong>Drivers are installed, you now need to do the most important thing for a successful installation. You must wait for 5-10 minutes.</strong></p>
+<p>after 10 min run <code>sudo akmods --force</code> and <code>sudo dracut --force</code> and then wait 5min, and <code>reboot</code>. its crucial to wait so the kernel can build it self in the background.</p>
+<p><strong>and that&rsquo;s it, the switch happens automatically when needed.</strong></p>
+<blockquote>
+<p>note this guide will disable wayland, X.org only supported.</p>
+</blockquote>
+<p><strong>to check NVIDIA Processes run the command <code>nvidia-smi</code></strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nvidia-smi
+</code></pre></div><pre><code>Wed Nov 25 09:51:36 2020       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 455.45.01    Driver Version: 455.45.01    CUDA Version: 11.1     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 166...  Off  | 00000000:01:00.0 Off |                  N/A |
+| N/A   33C    P8     4W /  N/A |      5MiB /  5944MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A      1776      G   /usr/libexec/Xorg                   4MiB |
++-----------------------------------------------------------------------------+
+</code></pre><h4 id="screenshot">screenshot</h4>
+<p><img src="/images/nvidia/nvidia_x_server_setting.png" alt="NVIDIA X Server Setting">
+<img src="/images/nvidia/nvidia-smi.png" alt="nvidia-smi">
+<img src="/images/nvidia/fedora_about.png" alt="fedora_about"></p>
+]]></content>
+        </item>
         
         <item>
             <title>How to automate a deploy with GitHub actions via SSH</title>
