@@ -39,8 +39,8 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo dnf install gcc kernel-headers kernel-devel akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs xorg-x11-drv-nvidia-libs.i686
 </code></pre></div><p><strong>install cuda</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo dnf install xorg-x11-drv-nvidia-cuda
-</code></pre></div><p><strong>Drivers are installed, you now need to do the most important thing for a successful installation. You must wait for 5-10 minutes.</strong></p>
-<p>after 10 min run <code>sudo akmods --force</code> and <code>sudo dracut --force</code> and then wait 5min, and <code>reboot</code>. its crucial to wait so the kernel can build it self in the background.</p>
+</code></pre></div><p><strong>Drivers are installed, run the below command</strong></p>
+<p>run <code>sudo akmods --force</code> and <code>sudo dracut --force</code> and then <code>reboot</code>.</p>
 <p><strong>and that&rsquo;s it, the switch happens automatically when needed.</strong></p>
 <blockquote>
 <p>note this guide will disable wayland, X.org only supported.</p>
