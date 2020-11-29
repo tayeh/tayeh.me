@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="">
-<meta name="description" content="Install the EPEL repository  CentOS 8  dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm  CentOS 7  yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm Install the Remi repository  CentOS 8  dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm  CentOS 7  yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm Install the yum-utils package  CentOS 8  dnf install yum-utils  CentOS 7  yum install yum-utils Enable the module stream for PHP 8.0:  CentOS 8  dnf module reset php dnf module install php:remi-8." />
+<meta name="description" content="Install the EPEL repository  CentOS 8  dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm  CentOS 7  yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm  Fedora 33  dnf install https://rpms.remirepo.net/fedora/remi-release-33.rpm Install the Remi repository  CentOS 8  dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm  CentOS 7  yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm  Fedora 33  dnf config-manager --set-enabled remi Install the yum-utils package  CentOS 8  dnf install yum-utils  CentOS 7  yum install yum-utils Enable the module stream for PHP 8." />
 <meta name="keywords" content="tayeh, Mohammed Tayeh, CentOS, php" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
@@ -22,7 +22,7 @@
 
     <title>
         
-            How to Install PHP 8 on CentOS 7/8 
+            How to Install PHP 8 on CentOS 7/8 and Fedora 
         
     </title>
 
@@ -40,11 +40,11 @@
 
 
 
-<meta itemprop="name" content="How to Install PHP 8 on CentOS 7/8">
-<meta itemprop="description" content="Install the EPEL repository  CentOS 8  dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm  CentOS 7  yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm Install the Remi repository  CentOS 8  dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm  CentOS 7  yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm Install the yum-utils package  CentOS 8  dnf install yum-utils  CentOS 7  yum install yum-utils Enable the module stream for PHP 8.0:  CentOS 8  dnf module reset php dnf module install php:remi-8.">
+<meta itemprop="name" content="How to Install PHP 8 on CentOS 7/8 and Fedora">
+<meta itemprop="description" content="Install the EPEL repository  CentOS 8  dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm  CentOS 7  yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm  Fedora 33  dnf install https://rpms.remirepo.net/fedora/remi-release-33.rpm Install the Remi repository  CentOS 8  dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm  CentOS 7  yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm  Fedora 33  dnf config-manager --set-enabled remi Install the yum-utils package  CentOS 8  dnf install yum-utils  CentOS 7  yum install yum-utils Enable the module stream for PHP 8.">
 <meta itemprop="datePublished" content="2020-11-29T14:58:01+02:00" />
 <meta itemprop="dateModified" content="2020-11-29T14:58:01+02:00" />
-<meta itemprop="wordCount" content="118">
+<meta itemprop="wordCount" content="146">
 <meta itemprop="image" content="https://tayeh.me"/>
 
 
@@ -54,13 +54,13 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://tayeh.me"/>
 
-<meta name="twitter:title" content="How to Install PHP 8 on CentOS 7/8"/>
-<meta name="twitter:description" content="Install the EPEL repository  CentOS 8  dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm  CentOS 7  yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm Install the Remi repository  CentOS 8  dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm  CentOS 7  yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm Install the yum-utils package  CentOS 8  dnf install yum-utils  CentOS 7  yum install yum-utils Enable the module stream for PHP 8.0:  CentOS 8  dnf module reset php dnf module install php:remi-8."/>
+<meta name="twitter:title" content="How to Install PHP 8 on CentOS 7/8 and Fedora"/>
+<meta name="twitter:description" content="Install the EPEL repository  CentOS 8  dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm  CentOS 7  yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm  Fedora 33  dnf install https://rpms.remirepo.net/fedora/remi-release-33.rpm Install the Remi repository  CentOS 8  dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm  CentOS 7  yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm  Fedora 33  dnf config-manager --set-enabled remi Install the yum-utils package  CentOS 8  dnf install yum-utils  CentOS 7  yum install yum-utils Enable the module stream for PHP 8."/>
 
 
 
-    <meta property="og:title" content="How to Install PHP 8 on CentOS 7/8" />
-<meta property="og:description" content="Install the EPEL repository  CentOS 8  dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm  CentOS 7  yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm Install the Remi repository  CentOS 8  dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm  CentOS 7  yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm Install the yum-utils package  CentOS 8  dnf install yum-utils  CentOS 7  yum install yum-utils Enable the module stream for PHP 8.0:  CentOS 8  dnf module reset php dnf module install php:remi-8." />
+    <meta property="og:title" content="How to Install PHP 8 on CentOS 7/8 and Fedora" />
+<meta property="og:description" content="Install the EPEL repository  CentOS 8  dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm  CentOS 7  yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm  Fedora 33  dnf install https://rpms.remirepo.net/fedora/remi-release-33.rpm Install the Remi repository  CentOS 8  dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm  CentOS 7  yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm  Fedora 33  dnf config-manager --set-enabled remi Install the yum-utils package  CentOS 8  dnf install yum-utils  CentOS 7  yum install yum-utils Enable the module stream for PHP 8." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tayeh.me/posts/install_php8_centos/" />
 <meta property="og:image" content="https://tayeh.me"/>
@@ -148,7 +148,7 @@
 
   <article>
     <h1 class="post-title">
-      <a href="https://tayeh.me/posts/install_php8_centos/">How to Install PHP 8 on CentOS 7/8</a>
+      <a href="https://tayeh.me/posts/install_php8_centos/">How to Install PHP 8 on CentOS 7/8 and Fedora</a>
     </h1>
 
     
@@ -163,6 +163,10 @@
 <li>CentOS 7</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+</code></pre></div><ul>
+<li>Fedora 33</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dnf install https://rpms.remirepo.net/fedora/remi-release-33.rpm
 </code></pre></div><h4 id="install-the-remi-repository">Install the Remi repository</h4>
 <ul>
 <li>CentOS 8</li>
@@ -172,6 +176,10 @@
 <li>CentOS 7</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+</code></pre></div><ul>
+<li>Fedora 33</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dnf config-manager --set-enabled remi
 </code></pre></div><h4 id="install-the-yum-utils-package">Install the yum-utils package</h4>
 <ul>
 <li>CentOS 8</li>
@@ -194,6 +202,12 @@ dnf update
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum-config-manager --disable <span style="color:#e6db74">&#39;remi-php*&#39;</span>
 yum-config-manager --enable   remi-php80
 yum update
+</code></pre></div><ul>
+<li>Fedora 33</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dnf module reset php
+dnf module install php:remi-8.0
+dnf update
 </code></pre></div><h4 id="install-php-8">Install PHP 8</h4>
 <ul>
 <li>CentOS 8</li>
@@ -203,6 +217,10 @@ yum update
 <li>CentOS 7</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install php
+</code></pre></div><ul>
+<li>Fedora 33</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dnf install php
 </code></pre></div><p>To verify the installed version, use the php command:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">php -v
 </code></pre></div><h4 id="conclusion">Conclusion</h4>
@@ -236,7 +254,7 @@ yum update
         <line x1="16" y1="17" x2="8" y2="17"></line>
         <polyline points="10 9 9 9 8 9"></polyline>
       </svg>
-      118 Words
+      146 Words
     </p>
 
     <p>
