@@ -3,12 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://tayeh.me/tags/fedora/</loc>
-    <lastmod>2020-11-25T09:27:21+02:00</lastmod>
+    <loc>https://tayeh.me/tags/centos/</loc>
+    <lastmod>2020-11-29T14:58:01+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://tayeh.me/</loc>
+    <lastmod>2020-11-29T14:58:01+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/posts/install_php8_centos/</loc>
+    <lastmod>2020-11-29T14:58:01+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/tags/php/</loc>
+    <lastmod>2020-11-29T14:58:01+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/posts/</loc>
+    <lastmod>2020-11-29T14:58:01+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/tags/</loc>
+    <lastmod>2020-11-29T14:58:01+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/tags/fedora/</loc>
     <lastmod>2020-11-25T09:27:21+02:00</lastmod>
   </url>
   
@@ -24,16 +49,6 @@
   
   <url>
     <loc>https://tayeh.me/tags/nvidia/</loc>
-    <lastmod>2020-11-25T09:27:21+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tayeh.me/posts/</loc>
-    <lastmod>2020-11-25T09:27:21+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tayeh.me/tags/</loc>
     <lastmod>2020-11-25T09:27:21+02:00</lastmod>
   </url>
   

@@ -6,8 +6,72 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 25 Nov 2020 09:27:21 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 29 Nov 2020 14:58:01 +0200</lastBuildDate>
         <atom:link href="https://tayeh.me/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>How to Install PHP 8 on CentOS 7/8</title>
+            <link>https://tayeh.me/posts/install_php8_centos/</link>
+            <pubDate>Sun, 29 Nov 2020 14:58:01 +0200</pubDate>
+            
+            <guid>https://tayeh.me/posts/install_php8_centos/</guid>
+            <description>Install the EPEL repository  cetnos 8  dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm  cetnos 7  yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm Install the Remi repository  cetnos 8  dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm  cetnos 7  yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm Install the yum-utils package  cetnos 8  dnf install yum-utils  cetnos 7  yum install yum-utils Enable the module stream for PHP 8.0:  cetnos 8  dnf module reset php dnf module install php:remi-8.</description>
+            <content type="html"><![CDATA[<h4 id="install-the-epel-repository">Install the EPEL repository</h4>
+<ul>
+<li>cetnos 8</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+</code></pre></div><ul>
+<li>cetnos 7</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+</code></pre></div><h4 id="install-the-remi-repository">Install the Remi repository</h4>
+<ul>
+<li>cetnos 8</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+</code></pre></div><ul>
+<li>cetnos 7</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+</code></pre></div><h4 id="install-the-yum-utils-package">Install the yum-utils package</h4>
+<ul>
+<li>cetnos 8</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dnf install yum-utils
+</code></pre></div><ul>
+<li>cetnos 7</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install yum-utils
+</code></pre></div><h4 id="enable-the-module-stream-for-php-80">Enable the module stream for PHP 8.0:</h4>
+<ul>
+<li>cetnos 8</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dnf module reset php
+dnf module install php:remi-8.0
+dnf update
+</code></pre></div><ul>
+<li>cetnos 7</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum-config-manager --disable <span style="color:#e6db74">&#39;remi-php*&#39;</span>
+yum-config-manager --enable   remi-php80
+yum update
+</code></pre></div><h4 id="install-php-8">Install PHP 8</h4>
+<ul>
+<li>cetnos 8</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dnf install php
+</code></pre></div><ul>
+<li>cetnos 7</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum install php
+</code></pre></div><p>To verify the installed version, use the php command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">php -v
+</code></pre></div><h4 id="conclusion">Conclusion</h4>
+<p>So that’s it on how to install PHP 8 on CentOS and RHEL.</p>
+<p>if you like this post consider to <strong><a href="/support">support me</a></strong></p>
+]]></content>
+        </item>
         
         <item>
             <title>How to install the NVIDIA drivers on Fedora 33 with Hybrid Switchable Graphics</title>
