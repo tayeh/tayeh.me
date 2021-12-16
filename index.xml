@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 29 Nov 2020 14:58:01 +0200</lastBuildDate><atom:link href="https://tayeh.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Dec 2021 18:52:22 +0200</lastBuildDate><atom:link href="https://tayeh.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Digitalocean Kubernetes Challenge 2021 - Harbor</title>
+      <link>https://tayeh.me/posts/digitalocean-kubernetes-challenge-2021/</link>
+      <pubDate>Tue, 07 Dec 2021 18:52:22 +0200</pubDate>
+      
+      <guid>https://tayeh.me/posts/digitalocean-kubernetes-challenge-2021/</guid>
+      <description>Introduction In this is guide i will explain how to create a Kubernetes Cluster on Digitalocean using Terraform, then i will deploy the Harbor on Cluster as a internal container registry
+Terraform Files the terraform code used to create the cluster
+resource &amp;#34;digitalocean_kubernetes_cluster&amp;#34; &amp;#34;tayeh-cluster&amp;#34; { name = &amp;#34;tayeh-cluster&amp;#34; region = &amp;#34;fra1&amp;#34; version = &amp;#34;1.21.5-do.0&amp;#34; node_pool { name = &amp;#34;worker-pool&amp;#34; size = &amp;#34;s-1vcpu-2gb&amp;#34; node_count = 3 auto_scale = true min_nodes = 3 max_nodes = 4 } } after prepare the Terraform code execute this command to apply it</description>
+    </item>
+    
     <item>
       <title>How to Install PHP 8 on CentOS 7/8 and Fedora</title>
       <link>https://tayeh.me/posts/install_php8_centos/</link>
@@ -77,8 +88,8 @@ To Generate a new SSH Key [root@server ~]$ ssh-keygen Generating public/private 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://tayeh.me/about/</guid>
-      <description>I&amp;rsquo;m a Site Reliability Engineer (DevOps Engineer), love tinkering, automation, Linux, and Open-source.
-I fell in love with computers when I was 7, now I’m an adult and I still love coding. I’m a meticulous Developer, a Linux &amp;amp; Open Source user and an unstoppable Dreamer. I’m always looking on the bright side of life, I love to learn new things every day, and, if you want to make me happy, create a challenge for me.</description>
+      <description>Summary Seasoned DevOps Engineer with diverse extensive background in cloud platforms. Highly motivated, with outstanding work ethics and passion to learn and grow in a world-class dynamic environment.
+Technology Stack  Terraform, Packer, Vagrant and Ansible Amazon Web Services (AWS) Google Cloud Platform (GCP) Major Databases Prometheus, Grafana, Loki and ELK stack Jenkins, Jenkins Pipeline (CI/CD) Docker, Podman Container  Experience brief and not current  United Nations International Computing Centre (UNICC), 03/2021 to 11/2021 as a AWS Cloud Administrator Kenan For Information and Technology (Dreams Partner), 08/2019 to Present as a DevOps Engineer Orange Palestine (ISP), 02/2017 to 8/2019 as a Linux Systems Engineer  Certifications  Linux Foundation Certified System Administrator (LFCS) AWS Certified Cloud Practitioner (CLF) AWS Certified Solutions Architect - Associate (SAA) and prepare for Certified Kubernetes Administrator (CKA)  Around the web Please feel free to send me an email or a message.</description>
     </item>
     
   </channel>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>DevOps on Hi! I&#39;m Mohammed Tayeh 😄</title>
-    <link>https://tayeh.me/tags/devops/</link>
-    <description>Recent content in DevOps on Hi! I&#39;m Mohammed Tayeh 😄</description>
+    <title>Terraform on Hi! I&#39;m Mohammed Tayeh 😄</title>
+    <link>https://tayeh.me/tags/terraform/</link>
+    <description>Recent content in Terraform on Hi! I&#39;m Mohammed Tayeh 😄</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 07 Dec 2021 18:52:22 +0200</lastBuildDate><atom:link href="https://tayeh.me/tags/devops/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Dec 2021 18:52:22 +0200</lastBuildDate><atom:link href="https://tayeh.me/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Digitalocean Kubernetes Challenge 2021 - Harbor</title>
       <link>https://tayeh.me/posts/digitalocean-kubernetes-challenge-2021/</link>
@@ -17,18 +17,6 @@
       <description>Introduction In this is guide i will explain how to create a Kubernetes Cluster on Digitalocean using Terraform, then i will deploy the Harbor on Cluster as a internal container registry
 Terraform Files the terraform code used to create the cluster
 resource &amp;#34;digitalocean_kubernetes_cluster&amp;#34; &amp;#34;tayeh-cluster&amp;#34; { name = &amp;#34;tayeh-cluster&amp;#34; region = &amp;#34;fra1&amp;#34; version = &amp;#34;1.21.5-do.0&amp;#34; node_pool { name = &amp;#34;worker-pool&amp;#34; size = &amp;#34;s-1vcpu-2gb&amp;#34; node_count = 3 auto_scale = true min_nodes = 3 max_nodes = 4 } } after prepare the Terraform code execute this command to apply it</description>
-    </item>
-    
-    <item>
-      <title>How to automate a deploy with GitHub actions via SSH</title>
-      <link>https://tayeh.me/posts/github_actions_via_ssh/</link>
-      <pubDate>Tue, 24 Nov 2020 10:07:01 +0200</pubDate>
-      
-      <guid>https://tayeh.me/posts/github_actions_via_ssh/</guid>
-      <description>Introduction GitHub Actions is an API for cause and effect on GitHub: orchestrate any workflow, based on any event, while GitHub manages the execution, provides rich feedback, and secures every step along the way.
-In this article, we will be exploring a hands-on approach to managing your CD processes using GitHub Actions via SSH.
-The workflow:
- Connect to VPS via SSH Move to project directory git pull the new changes execute any necessary command  Prerequisites  A GitHub account.</description>
     </item>
     
   </channel>
