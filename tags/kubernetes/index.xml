@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 07 Dec 2021 18:52:22 +0200</lastBuildDate><atom:link href="https://tayeh.me/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Feb 2022 17:31:50 +0200</lastBuildDate><atom:link href="https://tayeh.me/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Install Kubernetes Cluster on Centos 8 With Kubeadm and CRI-O</title>
+      <link>https://tayeh.me/posts/install-kubernetes-cluster-on-centos-8-with-kubeadm-crio/</link>
+      <pubDate>Sun, 06 Feb 2022 17:31:50 +0200</pubDate>
+      
+      <guid>https://tayeh.me/posts/install-kubernetes-cluster-on-centos-8-with-kubeadm-crio/</guid>
+      <description>This guide will teach you how to deploy a Kubernetes Cluster on CentOS 8 by using kubeadm and with CRI-O Container runtime
+Will use one VM as a master node and 2 VM as a worker nodes
+   VM Role IP Hostname Resource     Master 192.168.151.128 master01.tayeh.me 2GB Ram, 2vcpus   Worker 01 192.168.151.129 worker01.tayeh.me 2GB Ram, 2vcpus   Worker 02 192.168.151.130 worker02.tayeh.me 2GB Ram, 2vcpus    Steps 1.</description>
+    </item>
+    
     <item>
       <title>Digitalocean Kubernetes Challenge 2021 - Harbor</title>
       <link>https://tayeh.me/posts/digitalocean-kubernetes-challenge-2021/</link>

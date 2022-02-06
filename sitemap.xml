@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://tayeh.me/tags/centos8/</loc>
+    <lastmod>2022-02-06T17:31:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/tags/cri-o/</loc>
+    <lastmod>2022-02-06T17:31:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/</loc>
+    <lastmod>2022-02-06T17:31:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/posts/install-kubernetes-cluster-on-centos-8-with-kubeadm-crio/</loc>
+    <lastmod>2022-02-06T17:31:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/tags/kubeadm/</loc>
+    <lastmod>2022-02-06T17:31:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/tags/kubernetes/</loc>
+    <lastmod>2022-02-06T17:31:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/posts/</loc>
+    <lastmod>2022-02-06T17:31:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tayeh.me/tags/</loc>
+    <lastmod>2022-02-06T17:31:50+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://tayeh.me/tags/devops/</loc>
     <lastmod>2021-12-07T18:52:22+02:00</lastmod>
   </url>
@@ -19,26 +59,6 @@
   
   <url>
     <loc>https://tayeh.me/tags/harbor/</loc>
-    <lastmod>2021-12-07T18:52:22+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tayeh.me/</loc>
-    <lastmod>2021-12-07T18:52:22+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tayeh.me/tags/kubernetes/</loc>
-    <lastmod>2021-12-07T18:52:22+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tayeh.me/posts/</loc>
-    <lastmod>2021-12-07T18:52:22+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://tayeh.me/tags/</loc>
     <lastmod>2021-12-07T18:52:22+02:00</lastmod>
   </url>
   

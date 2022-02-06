@@ -6,8 +6,252 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 07 Dec 2021 18:52:22 +0200</lastBuildDate>
+        <lastBuildDate>Sun, 06 Feb 2022 17:31:50 +0200</lastBuildDate>
         <atom:link href="https://tayeh.me/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Install Kubernetes Cluster on Centos 8 With Kubeadm and CRI-O</title>
+            <link>https://tayeh.me/posts/install-kubernetes-cluster-on-centos-8-with-kubeadm-crio/</link>
+            <pubDate>Sun, 06 Feb 2022 17:31:50 +0200</pubDate>
+            
+            <guid>https://tayeh.me/posts/install-kubernetes-cluster-on-centos-8-with-kubeadm-crio/</guid>
+            <description>This guide will teach you how to deploy a Kubernetes Cluster on CentOS 8 by using kubeadm and with CRI-O Container runtime
+Will use one VM as a master node and 2 VM as a worker nodes
+   VM Role IP Hostname Resource     Master 192.168.151.128 master01.tayeh.me 2GB Ram, 2vcpus   Worker 01 192.168.151.129 worker01.tayeh.me 2GB Ram, 2vcpus   Worker 02 192.168.151.130 worker02.tayeh.me 2GB Ram, 2vcpus    Steps 1.</description>
+            <content type="html"><![CDATA[<p>This guide will teach you how to deploy a Kubernetes Cluster on CentOS 8 by using kubeadm and with CRI-O Container runtime</p>
+<p>Will use one VM as a master node and 2 VM as a worker nodes</p>
+<table>
+<thead>
+<tr>
+<th>VM Role</th>
+<th>IP</th>
+<th>Hostname</th>
+<th>Resource</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Master</td>
+<td>192.168.151.128</td>
+<td>master01.tayeh.me</td>
+<td>2GB Ram, 2vcpus</td>
+</tr>
+<tr>
+<td>Worker 01</td>
+<td>192.168.151.129</td>
+<td>worker01.tayeh.me</td>
+<td>2GB Ram, 2vcpus</td>
+</tr>
+<tr>
+<td>Worker 02</td>
+<td>192.168.151.130</td>
+<td>worker02.tayeh.me</td>
+<td>2GB Ram, 2vcpus</td>
+</tr>
+</tbody>
+</table>
+<h3 id="steps">Steps</h3>
+<h4 id="1-set-hostname-on-vms">1. Set hostname on VM&rsquo;s</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ hostnamectl set-hostname master01.tayeh.me
+</code></pre></div><h4 id="2-disable-swap">2. Disable Swap</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ swapoff -a
+$ vi /etc/fstab <span style="color:#75715e"># and remove the line containe swap </span>
+</code></pre></div><h4 id="3-disable-selinux">3. Disable SELinux</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ setenforce <span style="color:#ae81ff">0</span>
+$ vi /etc/selinux/config <span style="color:#75715e"># and set SELINUX=disabled </span>
+</code></pre></div><p>&ldquo;reboot VM&rsquo;s after disable the SELinux&rdquo;</p>
+<h4 id="4-configure-sysctl-and-enable-kernel-mod">4. Configure sysctl and enable kernel mod</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ modprobe overlay
+$ modprobe br_netfilter
+tee /etc/sysctl.d/k8s.conf<span style="color:#e6db74">&lt;&lt;EOF
+</span><span style="color:#e6db74">net.bridge.bridge-nf-call-iptables = 1
+</span><span style="color:#e6db74">net.bridge.bridge-nf-call-ip6tables = 1
+</span><span style="color:#e6db74">net.ipv4.ip_forward = 1
+</span><span style="color:#e6db74">EOF</span>
+$ sysctl --system
+</code></pre></div><h4 id="5-install-kubelet-kubeadm-and-kubectl-and-enable-epel-release">5. Install kubelet, kubeadm and kubectl (and enable epel-release)</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ tee /etc/yum.repos.d/kubernetes.repo<span style="color:#e6db74">&lt;&lt;EOF
+</span><span style="color:#e6db74">[kubernetes]
+</span><span style="color:#e6db74">name=Kubernetes
+</span><span style="color:#e6db74">baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+</span><span style="color:#e6db74">enabled=1
+</span><span style="color:#e6db74">gpgcheck=1
+</span><span style="color:#e6db74">repo_gpgcheck=1
+</span><span style="color:#e6db74">gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ dnf -y install kubelet kubeadm kubectl --disableexcludes<span style="color:#f92672">=</span>kubernetes epel-release
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl version --client <span style="color:#75715e"># check the version of kubectl</span>
+Client Version: version.Info<span style="color:#f92672">{</span>Major:<span style="color:#e6db74">&#34;1&#34;</span>, Minor:<span style="color:#e6db74">&#34;23&#34;</span>, GitVersion:<span style="color:#e6db74">&#34;v1.23.3&#34;</span>, GitCommit:<span style="color:#e6db74">&#34;816c97ab8cff8a1c72eccca1026f7820e93e0d25&#34;</span>, GitTreeState:<span style="color:#e6db74">&#34;clean&#34;</span>, BuildDate:<span style="color:#e6db74">&#34;2022-01-25T21:25:17Z&#34;</span>, GoVersion:<span style="color:#e6db74">&#34;go1.17.6&#34;</span>, Compiler:<span style="color:#e6db74">&#34;gc&#34;</span>, Platform:<span style="color:#e6db74">&#34;linux/amd64&#34;</span><span style="color:#f92672">}</span>
+</code></pre></div><h4 id="6-install-container-runtime-cri-o">6. Install Container runtime (CRI-O)</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export OS<span style="color:#f92672">=</span>CentOS_8_Stream <span style="color:#75715e"># or OS=CentOS_8</span>
+$ export VERSION<span style="color:#f92672">=</span>1.23 <span style="color:#75715e"># it&#39;s must matching your kubernetes version</span>
+<span style="color:#75715e"># Add repo</span>
+$ curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
+$ curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$VERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$VERSION.repo
+
+<span style="color:#75715e"># Install CRI-O</span>
+$ dnf install cri-o
+
+<span style="color:#75715e"># Start and enable Service</span>
+$ systemctl daemon-reload
+$ systemctl enable --now crio
+$ systemctl status crio
+</code></pre></div><h4 id="7-firewalld-rule">7. Firewalld Rule</h4>
+<p>on master server</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ firewall-cmd --add-port<span style="color:#f92672">={</span>6443,2379-2380,10250,10251,10252,5473,179,5473<span style="color:#f92672">}</span>/tcp --permanent
+$ firewall-cmd --add-port<span style="color:#f92672">={</span>4789,8285,8472<span style="color:#f92672">}</span>/udp --permanent
+$ firewall-cmd --reload
+</code></pre></div><p>on worker server</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ firewall-cmd --add-port<span style="color:#f92672">={</span>10250,30000-32767,5473,179,5473<span style="color:#f92672">}</span>/tcp --permanent
+$ firewall-cmd --add-port<span style="color:#f92672">={</span>4789,8285,8472<span style="color:#f92672">}</span>/udp --permanent
+$ firewall-cmd --reload
+</code></pre></div><h4 id="8-install-control-plane-node">8. install control-plane node</h4>
+<p>make sure the br_netfilter module is loaded</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ lsmod | grep br_netfilter
+br_netfilter           <span style="color:#ae81ff">24576</span>  <span style="color:#ae81ff">0</span>
+bridge                <span style="color:#ae81ff">278528</span>  <span style="color:#ae81ff">1</span> br_netfilter
+<span style="color:#75715e"># if you not see the output like above rerun this commands ($ modprobe overlay; modprobe br_netfilter)</span>
+</code></pre></div><p><strong>Enable kubelet service</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ systemctl enable kubelet
+</code></pre></div><p><strong>Pull container images</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubeadm config images pull
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/kube-apiserver:v1.23.3
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/kube-controller-manager:v1.23.3
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/kube-scheduler:v1.23.3
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/kube-proxy:v1.23.3
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/pause:3.6
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/etcd:3.5.1-0
+<span style="color:#f92672">[</span>config/images<span style="color:#f92672">]</span> Pulled k8s.gcr.io/coredns/coredns:v1.8.6
+</code></pre></div><p><strong>Create cluster</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubeadm init
+W0206 20:14:42.692845    <span style="color:#ae81ff">2943</span> version.go:103<span style="color:#f92672">]</span> could not fetch a Kubernetes version from the internet: unable to get URL <span style="color:#e6db74">&#34;https://dl.k8s.io/release/stable-1.txt&#34;</span>: Get <span style="color:#e6db74">&#34;https://dl.k8s.io/release/stable-1.txt&#34;</span>: context deadline exceeded <span style="color:#f92672">(</span>Client.Timeout exceeded <span style="color:#66d9ef">while</span> awaiting headers<span style="color:#f92672">)</span>
+W0206 20:14:42.692944    <span style="color:#ae81ff">2943</span> version.go:104<span style="color:#f92672">]</span> falling back to the local client version: v1.23.3
+<span style="color:#f92672">[</span>init<span style="color:#f92672">]</span> Using Kubernetes version: v1.23.3
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Running pre-flight checks
+        <span style="color:#f92672">[</span>WARNING Firewalld<span style="color:#f92672">]</span>: firewalld is active, please ensure ports <span style="color:#f92672">[</span><span style="color:#ae81ff">6443</span> 10250<span style="color:#f92672">]</span> are open or your cluster may not <span style="color:#66d9ef">function</span> correctly
+        <span style="color:#f92672">[</span>WARNING FileExisting-tc<span style="color:#f92672">]</span>: tc not found in system path
+        <span style="color:#f92672">[</span>WARNING Hostname<span style="color:#f92672">]</span>: hostname <span style="color:#e6db74">&#34;master01.tayeh.me&#34;</span> could not be reached
+        <span style="color:#f92672">[</span>WARNING Hostname<span style="color:#f92672">]</span>: hostname <span style="color:#e6db74">&#34;master01.tayeh.me&#34;</span>: lookup master01.tayeh.me on 192.168.151.2:53: read udp 192.168.151.128:54368-&gt;192.168.151.2:53: i/o timeout
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> Pulling images required <span style="color:#66d9ef">for</span> setting up a Kubernetes cluster
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> This might take a minute or two, depending on the speed of your internet connection
+<span style="color:#f92672">[</span>preflight<span style="color:#f92672">]</span> You can also perform this action in beforehand using <span style="color:#e6db74">&#39;kubeadm config images pull&#39;</span>
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Using certificateDir folder <span style="color:#e6db74">&#34;/etc/kubernetes/pki&#34;</span>
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;ca&#34;</span> certificate and key
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;apiserver&#34;</span> certificate and key
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> apiserver serving cert is signed <span style="color:#66d9ef">for</span> DNS names <span style="color:#f92672">[</span>kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local master01.tayeh.me<span style="color:#f92672">]</span> and IPs <span style="color:#f92672">[</span>10.96.0.1 192.168.151.128<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;apiserver-kubelet-client&#34;</span> certificate and key
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;front-proxy-ca&#34;</span> certificate and key
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;front-proxy-client&#34;</span> certificate and key
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;etcd/ca&#34;</span> certificate and key
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;etcd/server&#34;</span> certificate and key
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> etcd/server serving cert is signed <span style="color:#66d9ef">for</span> DNS names <span style="color:#f92672">[</span>localhost master01.tayeh.me<span style="color:#f92672">]</span> and IPs <span style="color:#f92672">[</span>192.168.151.128 127.0.0.1 ::1<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;etcd/peer&#34;</span> certificate and key
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> etcd/peer serving cert is signed <span style="color:#66d9ef">for</span> DNS names <span style="color:#f92672">[</span>localhost master01.tayeh.me<span style="color:#f92672">]</span> and IPs <span style="color:#f92672">[</span>192.168.151.128 127.0.0.1 ::1<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;etcd/healthcheck-client&#34;</span> certificate and key
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;apiserver-etcd-client&#34;</span> certificate and key
+<span style="color:#f92672">[</span>certs<span style="color:#f92672">]</span> Generating <span style="color:#e6db74">&#34;sa&#34;</span> key and public key
+<span style="color:#f92672">[</span>kubeconfig<span style="color:#f92672">]</span> Using kubeconfig folder <span style="color:#e6db74">&#34;/etc/kubernetes&#34;</span>
+<span style="color:#f92672">[</span>kubeconfig<span style="color:#f92672">]</span> Writing <span style="color:#e6db74">&#34;admin.conf&#34;</span> kubeconfig file
+<span style="color:#f92672">[</span>kubeconfig<span style="color:#f92672">]</span> Writing <span style="color:#e6db74">&#34;kubelet.conf&#34;</span> kubeconfig file
+<span style="color:#f92672">[</span>kubeconfig<span style="color:#f92672">]</span> Writing <span style="color:#e6db74">&#34;controller-manager.conf&#34;</span> kubeconfig file
+<span style="color:#f92672">[</span>kubeconfig<span style="color:#f92672">]</span> Writing <span style="color:#e6db74">&#34;scheduler.conf&#34;</span> kubeconfig file
+<span style="color:#f92672">[</span>kubelet-start<span style="color:#f92672">]</span> Writing kubelet environment file with flags to file <span style="color:#e6db74">&#34;/var/lib/kubelet/kubeadm-flags.env&#34;</span>
+<span style="color:#f92672">[</span>kubelet-start<span style="color:#f92672">]</span> Writing kubelet configuration to file <span style="color:#e6db74">&#34;/var/lib/kubelet/config.yaml&#34;</span>
+<span style="color:#f92672">[</span>kubelet-start<span style="color:#f92672">]</span> Starting the kubelet
+<span style="color:#f92672">[</span>control-plane<span style="color:#f92672">]</span> Using manifest folder <span style="color:#e6db74">&#34;/etc/kubernetes/manifests&#34;</span>
+<span style="color:#f92672">[</span>control-plane<span style="color:#f92672">]</span> Creating static Pod manifest <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;kube-apiserver&#34;</span>
+<span style="color:#f92672">[</span>control-plane<span style="color:#f92672">]</span> Creating static Pod manifest <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;kube-controller-manager&#34;</span>
+<span style="color:#f92672">[</span>control-plane<span style="color:#f92672">]</span> Creating static Pod manifest <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#34;kube-scheduler&#34;</span>
+<span style="color:#f92672">[</span>etcd<span style="color:#f92672">]</span> Creating static Pod manifest <span style="color:#66d9ef">for</span> local etcd in <span style="color:#e6db74">&#34;/etc/kubernetes/manifests&#34;</span>
+<span style="color:#f92672">[</span>wait-control-plane<span style="color:#f92672">]</span> Waiting <span style="color:#66d9ef">for</span> the kubelet to boot up the control plane as static Pods from directory <span style="color:#e6db74">&#34;/etc/kubernetes/manifests&#34;</span>. This can take up to 4m0s
+<span style="color:#f92672">[</span>apiclient<span style="color:#f92672">]</span> All control plane components are healthy after 11.002001 seconds
+<span style="color:#f92672">[</span>upload-config<span style="color:#f92672">]</span> Storing the configuration used in ConfigMap <span style="color:#e6db74">&#34;kubeadm-config&#34;</span> in the <span style="color:#e6db74">&#34;kube-system&#34;</span> Namespace
+<span style="color:#f92672">[</span>kubelet<span style="color:#f92672">]</span> Creating a ConfigMap <span style="color:#e6db74">&#34;kubelet-config-1.23&#34;</span> in namespace kube-system with the configuration <span style="color:#66d9ef">for</span> the kubelets in the cluster
+NOTE: The <span style="color:#e6db74">&#34;kubelet-config-1.23&#34;</span> naming of the kubelet ConfigMap is deprecated. Once the UnversionedKubeletConfigMap feature gate graduates to Beta the default name will become just <span style="color:#e6db74">&#34;kubelet-config&#34;</span>. Kubeadm upgrade will handle this transition transparently.
+<span style="color:#f92672">[</span>upload-certs<span style="color:#f92672">]</span> Skipping phase. Please see --upload-certs
+<span style="color:#f92672">[</span>mark-control-plane<span style="color:#f92672">]</span> Marking the node master01.tayeh.me as control-plane by adding the labels: <span style="color:#f92672">[</span>node-role.kubernetes.io/master<span style="color:#f92672">(</span>deprecated<span style="color:#f92672">)</span> node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>mark-control-plane<span style="color:#f92672">]</span> Marking the node master01.tayeh.me as control-plane by adding the taints <span style="color:#f92672">[</span>node-role.kubernetes.io/master:NoSchedule<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> Using token: ddyzgx.nuhs3eyyhm3disy7
+<span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+<span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> configured RBAC rules to allow Node Bootstrap tokens to get nodes
+<span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order <span style="color:#66d9ef">for</span> nodes to get long term certificate credentials
+<span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+<span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> configured RBAC rules to allow certificate rotation <span style="color:#66d9ef">for</span> all node client certificates in the cluster
+<span style="color:#f92672">[</span>bootstrap-token<span style="color:#f92672">]</span> Creating the <span style="color:#e6db74">&#34;cluster-info&#34;</span> ConfigMap in the <span style="color:#e6db74">&#34;kube-public&#34;</span> namespace
+<span style="color:#f92672">[</span>kubelet-finalize<span style="color:#f92672">]</span> Updating <span style="color:#e6db74">&#34;/etc/kubernetes/kubelet.conf&#34;</span> to point to a rotatable kubelet client certificate and key
+<span style="color:#f92672">[</span>addons<span style="color:#f92672">]</span> Applied essential addon: CoreDNS
+<span style="color:#f92672">[</span>addons<span style="color:#f92672">]</span> Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown <span style="color:#66d9ef">$(</span>id -u<span style="color:#66d9ef">)</span>:<span style="color:#66d9ef">$(</span>id -g<span style="color:#66d9ef">)</span> $HOME/.kube/config
+
+Alternatively, <span style="color:#66d9ef">if</span> you are the root user, you can run:
+
+  export KUBECONFIG<span style="color:#f92672">=</span>/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run <span style="color:#e6db74">&#34;kubectl apply -f [podnetwork].yaml&#34;</span> with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.151.128:6443 --token ddyzgx.nuhs3eyyhm3disy7 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        --discovery-token-ca-cert-hash sha256:bd4cf138e1e0b018ebeb5c34074354d5eeee90082468728ee165c6be2bfc1d69
+</code></pre></div><p><strong>Configure kubectl using commands in the output</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir -p $HOME/.kube
+$ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+$ chown <span style="color:#66d9ef">$(</span>id -u<span style="color:#66d9ef">)</span>:<span style="color:#66d9ef">$(</span>id -g<span style="color:#66d9ef">)</span> $HOME/.kube/config
+</code></pre></div><p><strong>Check cluster status</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl cluster-info
+Kubernetes control plane is running at https://192.168.151.128:6443
+CoreDNS is running at https://192.168.151.128:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+$ kubectl get node 
+NAME                STATUS   ROLES                  AGE     VERSION
+master01.tayeh.me   Ready    control-plane,master   8m32s   v1.23.3
+</code></pre></div><h4 id="9-install-network-plugin">9. Install network plugin</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+</code></pre></div><p><strong>check the pods rununing</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pods --all-namespaces
+NAMESPACE     NAME                                        READY   STATUS              RESTARTS   AGE
+kube-system   calico-kube-controllers-566dc76669-dm8ph    0/1     ContainerCreating   <span style="color:#ae81ff">0</span>          20s
+kube-system   calico-node-2qphl                           0/1     Init:0/3            <span style="color:#ae81ff">0</span>          21s
+kube-system   coredns-64897985d-b2xsl                     1/1     Running             <span style="color:#ae81ff">0</span>          14m
+kube-system   coredns-64897985d-kjb7z                     1/1     Running             <span style="color:#ae81ff">0</span>          14m
+kube-system   etcd-master01.tayeh.me                      1/1     Running             <span style="color:#ae81ff">0</span>          14m
+kube-system   kube-apiserver-master01.tayeh.me            1/1     Running             <span style="color:#ae81ff">0</span>          14m
+kube-system   kube-controller-manager-master01.tayeh.me   1/1     Running             <span style="color:#ae81ff">0</span>          14m
+kube-system   kube-proxy-ksq56                            1/1     Running             <span style="color:#ae81ff">0</span>          14m
+kube-system   kube-scheduler-master01.tayeh.me            1/1     Running             <span style="color:#ae81ff">0</span>          14m
+</code></pre></div><h4 id="10-add-worker-node">10. Add Worker Node</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubeadm join 192.168.151.128:6443 --token ddyzgx.nuhs3eyyhm3disy7 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        --discovery-token-ca-cert-hash sha256:bd4cf138e1e0b018ebeb5c34074354d5eeee90082468728ee165c6be2bfc1d69 
+<span style="color:#75715e"># this command from the output of (kubeadm init)</span>
+</code></pre></div><p><strong>check nodes</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get node  -o wide
+NAME                STATUS   ROLES                  AGE   VERSION   INTERNAL-IP       EXTERNAL-IP   OS-IMAGE          KERNEL-VERSION          CONTAINER-RUNTIME
+master01.tayeh.me   Ready    control-plane,master   17m   v1.23.3   192.168.151.128   &lt;none&gt;        CentOS Stream <span style="color:#ae81ff">8</span>   4.18.0-358.el8.x86_64   cri-o://1.23.0
+worker01.tayeh.me   Ready    &lt;none&gt;                 28s   v1.23.3   192.168.151.129   &lt;none&gt;        CentOS Stream <span style="color:#ae81ff">8</span>   4.18.0-358.el8.x86_64   cri-o://1.23.0
+worker02.tayeh.me   Ready    &lt;none&gt;                 23s   v1.23.3   192.168.151.130   &lt;none&gt;        CentOS Stream <span style="color:#ae81ff">8</span>   4.18.0-358.el8.x86_64   cri-o://1.23.0
+</code></pre></div><h4 id="11-try-deploy-application-on-cluster">11. try Deploy application on cluster</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl apply -f https://k8s.io/examples/pods/commands.yaml
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ kubectl get pods -o wide
+NAME           READY   STATUS              RESTARTS   AGE   IP       NODE                NOMINATED NODE   READINESS GATES
+command-demo   0/1     ContainerCreating   <span style="color:#ae81ff">0</span>          53s   &lt;none&gt;   worker01.tayeh.me   &lt;none&gt;           &lt;none&gt;
+
+$ kubectl get pods -o wide 
+NAME           READY   STATUS      RESTARTS   AGE     IP          NODE                NOMINATED NODE   READINESS GATES
+command-demo   0/1     Completed   <span style="color:#ae81ff">0</span>          7m29s   10.85.0.2   worker01.tayeh.me   &lt;none&gt;           &lt;none&gt;
+</code></pre></div><blockquote>
+<p>enjoy</p>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>Digitalocean Kubernetes Challenge 2021 - Harbor</title>
